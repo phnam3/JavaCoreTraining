@@ -1,8 +1,8 @@
 public class Student {
     private Integer age;
-    private Double gpa;
+    private Integer gpa;
 
-    public Student(Integer age, Double gpa) {
+    public Student(Integer age, Integer gpa) {
         this.age = age;
         this.gpa = gpa;
     }
@@ -15,11 +15,11 @@ public class Student {
         this.age = age;
     }
 
-    public Double getGpa() {
+    public Integer getGpa() {
         return gpa;
     }
 
-    public void setGpa(Double gpa) {
+    public void setGpa(Integer gpa) {
         this.gpa = gpa;
     }
 }

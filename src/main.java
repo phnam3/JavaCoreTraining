@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -68,25 +69,35 @@ public class main {
         BiFunction<Integer, Integer, String> sumString = ((a,b) -> Integer.toString(a*b));
         System.out.println(sumString.apply(10,20) + 30);
 
-        //Create a school with 10 students
-        Integer baseAge = 20;
-        Double baseGpa = 1.1;
+        //Create a school with 100 students
+        Random rand = new Random();
         List<Student> studentList = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-            studentList.add(new Student(baseAge++, baseGpa++));
+        for(int i = 0; i < 100; i++){
+            Integer age = rand.nextInt(25-18) + 18;
+            Integer gpa = rand.nextInt(7-1) + 1;
+            studentList.add(new Student(age, gpa));
         }
         School school = new School(studentList);
         for(Student s : school){
-            System.out.println(s.getGpa());
+            System.out.println("student with age: " + s.getAge() + " and gpa: " + s.getGpa());
         }
 
-        //Create new list of good student with gpa > 4 in descending order of age (list was created with ascending order already)
+        //Create new list of good student with gpa > 4 in descending order of age
         List<Student> goodStudent = school.getStudentList().stream()
                 .filter(s -> s.getGpa()>4)
                 .sorted((s1, s2) -> s2.getAge() - s1.getAge())
                 .collect(Collectors.toList());
         for(Student s : goodStudent){
             System.out.println("student with age: " + s.getAge() + " and gpa: " + s.getGpa());
+        }
+
+        //Create list of 10 students that is youngest and have the highest gpa
+        List<Student> youngStudent = school.getStudentList().stream()
+                .sorted((s1,s2) -> s1.getAge()- s2.getAge()).limit(10)
+                .sorted((s1,s2) -> s2.getGpa()-s1.getGpa())
+                .collect(Collectors.toList());
+        for(Student s : youngStudent){
+            System.out.println("student with youngest age: " + s.getAge() + " and highest gpa: " + s.getGpa());
         }
     }
 }
